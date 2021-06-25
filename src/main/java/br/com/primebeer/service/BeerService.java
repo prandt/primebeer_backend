@@ -41,6 +41,11 @@ public class BeerService {
 		return list;
 	}
 	
+	public List<Beer> findByName(String name){
+		List<Beer> list = Optional.ofNullable(repo.findByName(name)).orElse(null);
+		return list;
+	}
+	
 	public Beer findById(Integer id) {
 		Beer beer = Optional.ofNullable(repo.findById(id)).orElse(null).orElseThrow();
 		return beer;

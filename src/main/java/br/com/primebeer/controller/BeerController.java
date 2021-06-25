@@ -40,6 +40,13 @@ public class BeerController {
 		return ResponseEntity.ok().body(listDTO);
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "/name/{name}")
+	public ResponseEntity<List<BeerDTO>> findByName(@PathVariable String name){
+		List<Beer> list = service.findByName(name);
+		List<BeerDTO> listDTO = list.stream().map(obj -> new BeerDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
+	}
+	
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Beer> save(@RequestBody BeerNewDTO objDTO) throws SQLIntegrityConstraintViolationException{
